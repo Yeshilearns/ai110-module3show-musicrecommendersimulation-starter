@@ -29,6 +29,11 @@ Some prompts to answer:
 
 You can include a simple diagram or bullet list if helpful.
 
+For this project, I built a simple music recommendation system that tries to suggest songs based on a user’s taste. Instead of using complex methods like real apps (Spotify, TikTok, etc.), I focused on a content-based approach, where songs are compared directly using their features. Each song in the system includes attributes like genre, mood, energy, tempo_bpm, and valence. These features help describe what the song feels like overall (its “vibe”). For example, energy and tempo can tell if a song is fast or intense, while mood and valence help describe the emotional feel. The userprofile stores what the user prefers, such as their favorite genre and mood, along with target values for things like energy, tempo, and valence. This basically represents what kind of music the user is in the mood for. The recommender works by comparing each song to the user’s preferences and giving it a score. If the song matches the user’s genre or mood, it gets extra points. For numerical features like energy, tempo, and valence, the system gives higher scores to songs that are closer to the user’s preferred values (not just higher or lower, but closer).
+
+After each song is scored, the system sorts all songs from highest to lowest based on their total score. The songs with the highest scores are selected as the final recommendations. One limitation of this approach is that it may prioritize certain features, like genre, more than others and potentially miss songs that still match the user’s overall vibe. Also, since this is a simple content-based system, it does not learn from user behavior or improve over time like real recommendation systems.
+
+![Recommender Output](OUTPUT-1.png)
 ---
 
 ## Getting Started
