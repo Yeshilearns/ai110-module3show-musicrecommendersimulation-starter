@@ -1,6 +1,7 @@
-from typing import List, Dict, Tuple, Optional
+from typing import List, Dict, Tuple
 from dataclasses import dataclass
 import csv
+
 
 @dataclass
 class Song:
@@ -19,6 +20,7 @@ class Song:
     danceability: float
     acousticness: float
 
+
 @dataclass
 class UserProfile:
     """
@@ -29,6 +31,7 @@ class UserProfile:
     favorite_mood: str
     target_energy: float
     likes_acoustic: bool
+
 
 class Recommender:
     """
@@ -48,7 +51,7 @@ class Recommender:
 
 
 def load_songs(csv_path: str) -> List[Dict]:
-     """Load songs from a CSV file and return a list of dictionaries."""
+    """Load songs from a CSV file and return a list of dictionaries."""
     songs = []
 
     with open(csv_path, "r", encoding="utf-8") as file:
@@ -71,30 +74,28 @@ def load_songs(csv_path: str) -> List[Dict]:
 
     return songs
 
+
 def score_song(user_prefs: Dict, song: Dict) -> Tuple[float, str]:
     """Compute a score and explanation for how well a song matches user preferences."""
     score = 0.0
     reasons = []
 
-    # Genre match
     if song["genre"] == user_prefs["genre"]:
         score += 2.0
         reasons.append("genre match (+2.0)")
 
-    # Mood match
     if song["mood"] == user_prefs["mood"]:
         score += 1.0
         reasons.append("mood match (+1.0)")
 
-    # Energy similarity
     energy_diff = abs(song["energy"] - user_prefs["energy"])
     energy_score = max(0.0, 1.0 - energy_diff)
     score += energy_score
     reasons.append(f"energy similarity (+{energy_score:.2f})")
 
     explanation = ", ".join(reasons)
-
     return score, explanation
+
 
 def recommend_songs(user_prefs: Dict, songs: List[Dict], k: int = 5) -> List[Tuple[Dict, float, str]]:
     """Rank songs by score and return the top k recommendations."""
